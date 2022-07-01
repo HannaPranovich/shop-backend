@@ -1,0 +1,29 @@
+service: product-service
+
+frameworkVersion: '2'
+
+plugins:
+  - serverless-esbuild
+
+custom:
+  esbuild:
+    bundle: true
+    minify: false
+    concurrency: 10
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: eu-west-1
+  stage: dev
+  httpApi:
+    cors: true
+  lambdaHashingVersion: '20201221'
+
+functions:
+  getProductsList:
+    handler: handler.getProductsList
+    events:
+      - httpApi:
+          path: /products
+          method: get
