@@ -16,12 +16,12 @@ export const errorResponse = (error: Error, statusCode: number = 500): IResponse
   }
 }
 
-export const successResponse = (response: Record<string, unknown>, statusCode: number = 200): IResponse => {
+export const successResponse = (body: Object, statusCode: number = 200): IResponse => {
   console.log("successResponse")
   return {
     statusCode,
     headers: { ...defaultHeaders },
-    body: JSON.stringify(response)
+    body: JSON.stringify(body)
   }
 }
 

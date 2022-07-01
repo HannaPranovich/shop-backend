@@ -21,6 +21,12 @@ provider:
   lambdaHashingVersion: '20201221'
 
 functions:
+  getProductsById:
+    handler: handler.getProductsById
+    events:
+      - httpApi:
+          path: /products/{productId}
+          method: get
   getProductsList:
     handler: handler.getProductsList
     events:
