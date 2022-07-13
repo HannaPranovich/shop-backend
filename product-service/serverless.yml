@@ -1,15 +1,18 @@
 service: product-service
 
-frameworkVersion: '2'
+frameworkVersion: '3'
 
 plugins:
   - serverless-webpack
+  - serverless-dotenv-plugin
 
 custom:
   webpack:
     webpackConfig: webpack.config.js
     includeModules: true
     packager: 'npm'
+
+useDotenv: true
 
 provider:
   name: aws
@@ -21,6 +24,12 @@ provider:
   lambdaHashingVersion: '20201221'
 
 functions:
+  createProduct:
+    handler: handler.createNewProduct
+    events:
+      - httpApi:
+          path: /products
+          method: post
   getProductsById:
     handler: handler.getProductsById
     events:

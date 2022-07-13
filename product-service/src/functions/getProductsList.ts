@@ -1,8 +1,10 @@
-import { getAllProducts, errorResponse, successResponse, } from "../utils/index";
+import { errorResponse, successResponse, } from "../utils";
+import { getAllProductsPG } from '../services';
+
 
 export const getProductsList = async () => {
   try {
-    const products = await getAllProducts();
+    const products = await getAllProductsPG();
 
     return successResponse({ products });
 

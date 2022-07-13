@@ -1,5 +1,6 @@
 import { APIGatewayProxyEvent } from 'aws-lambda';
-import { getProductById, errorResponse, successResponse, } from "../utils";
+import { errorResponse, successResponse, } from "../utils";
+import { getByIdPG } from '../services';
 
 export const getProductsById = async (event: APIGatewayProxyEvent) => {
   console.log("getProductsById event", event);
@@ -7,9 +8,13 @@ export const getProductsById = async (event: APIGatewayProxyEvent) => {
   try {
     const { productId = '' } = event.pathParameters;
 
-    const product = await getProductById(productId);
+    if (!productId) {
+      throw new Error('ID is required.')
+    };
 
-    
+    const product = await getByIdPG(productId);
+
+
     if (product) {
       return successResponse(product)
     }
